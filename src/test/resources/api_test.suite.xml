@@ -1,19 +1,32 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Api Test" thread-count="2" parallel="tests">
+<suite name="LocalExecution" thread-count="2" parallel="tests">
 
     <parameter name="baseUrl" value="https://api-coffee-testing.herokuapp.com"></parameter>
 
-    <test name="Posts">
-        <classes>
-            <class name="PostTests"></class>
-        </classes>
+<!--    <test name="Posts">-->
+<!--        <classes>-->
+<!--            <class name="PostTests"></class>-->
+<!--        </classes>-->
 
-    </test>
+<!--    </test>-->
 
     <test name="Comments">
         <classes>
-            <class name="CommentTests"></class>
+            <class name="CommentTests">
+                <methods>
+                    <!-- v1.POST("/comment/:postid", basicAuth(), comment.Create) -->
+                    <include name="Test_Comment_Create_Positive" />
+                    <include name="Test_Comment_Create_Negative" />
+                    <include name="Test_Comment_Create_Security" />
+                    <!-- v1.POST("/comment/:postid", basicAuth(), comment.Create) -->
+                    <include name="Test_Comment_All_Zero_Comments_Positive" />
+                    <include name="Test_Comment_All_Multiple_Comments_Positive" />
+                    <include name="Test_Comment_All_Negative" />
+                    <include name="Test_Comment_All_Security" />
+                </methods>
+            </class>
+
         </classes>
     </test>
 

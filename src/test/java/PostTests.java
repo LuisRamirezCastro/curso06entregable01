@@ -21,7 +21,7 @@ public class PostTests extends BaseTest{
     private static Integer createdPost = 0;
 
     @BeforeGroups("create_post")
-    public void createPost(){
+    public static Integer createPost(){
 
         Post testPost = new Post(DataHelper.generateRandomTitle(), DataHelper.generateRandomContent());
 
@@ -34,6 +34,7 @@ public class PostTests extends BaseTest{
         createdPost = jsonPathEvaluator.get("id");
         System.out.println("Post id creado: "+ createdPost.toString());
 
+        return createdPost;
     }
 
     // - - - - - - TESTS - - - - - -

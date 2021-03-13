@@ -26,7 +26,6 @@ public class DataHelper {
         return String.format("%s" , generateRandomString(100));
     }
 
-
     private static String generateRandomString(int targetStringLength){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -45,9 +44,8 @@ public class DataHelper {
     public static User getTestUser() {
         return new User("", "luis@test.com", "luis");
     }
+
+    public static User getInvalidTestUser(){
+        return new User("", "luis@invalidtest.com", "invalidluis");
+    }
 }
-
-//    public static User getTestUser(){
-//        return new User("","Kasandra_Bogisich@gmail.com", "pablo");
-//    }
-
