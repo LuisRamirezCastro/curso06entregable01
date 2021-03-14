@@ -7,26 +7,29 @@ Descripción: Crear una framework de pruebas utilizando Java + Maven + testNG qu
 Evaluación: 70%
 Detalles:
 
-● Utilizar el framework desarrollado en clases como base para el examen: https://github.com/coffeestainio/restassured-boilerplate
-● Utilizar la aplicación de prueba provista por el profesor para ejecutar las pruebas: https://api-coffee-testing.herokuapp.com/
-● Autenticación básica: testuser/testpass
-● Dependencia entre posts y comments: Los comentarios se relacionan a un post. Por ejemplo, el post 1, puede tener comentarios 1 y 2; y solamente son accesibles si se utiliza el post correspondiente.
+- Utilizar el framework desarrollado en clases como base para el examen: https://github.com/coffeestainio/restassured-boilerplate
+- Utilizar la aplicación de prueba provista por el profesor para ejecutar las pruebas: https://api-coffee-testing.herokuapp.com/
+- Autenticación básica: testuser/testpass
+- Dependencia entre posts y comments: Los comentarios se relacionan a un post. Por ejemplo, el post 1, puede tener comentarios 1 y 2; 
+y solamente son accesibles si se utiliza el post correspondiente.
 
 Instrucciones:
 
 1. Dado los siguientes endpoints:
 
-v1.POST("/post", TokenAuthMiddleware(), post.Create)
-v1.GET("/posts", TokenAuthMiddleware(), post.All)
-v1.GET("/post/:id", TokenAuthMiddleware(), post.One)
-v1.PUT("/post/:id", TokenAuthMiddleware(), post.Update)
-v1.DELETE("/post/:id", TokenAuthMiddleware(), post.Delete)
+POSTS:
+- v1.POST("/post", TokenAuthMiddleware(), post.Create)
+- v1.GET("/posts", TokenAuthMiddleware(), post.All)
+- v1.GET("/post/:id", TokenAuthMiddleware(), post.One)
+- v1.PUT("/post/:id", TokenAuthMiddleware(), post.Update)
+- v1.DELETE("/post/:id", TokenAuthMiddleware(), post.Delete)
 
-v1.POST("/comment/:postid", basicAuth(), comment.Create)
-v1.GET("/comments/:postid", basicAuth(), comment.All)
-v1.GET("/comment/:postid/:id", basicAuth(), comment.One)
-v1.PUT("/comment/:postid/:id", basicAuth(), comment.Update)
-v1.DELETE("/comment/:postid/:id", basicAuth(), comment.Delete)
+COMMENTS:
+- v1.POST("/comment/:postid", basicAuth(), comment.Create)
+- v1.GET("/comments/:postid", basicAuth(), comment.All)
+- v1.GET("/comment/:postid/:id", basicAuth(), comment.One)
+- v1.PUT("/comment/:postid/:id", basicAuth(), comment.Update)
+- v1.DELETE("/comment/:postid/:id", basicAuth(), comment.Delete)
 
 2. Que reciben los siguientes body | payload.
 
