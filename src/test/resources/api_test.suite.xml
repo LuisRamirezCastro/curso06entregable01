@@ -4,12 +4,36 @@
 
     <parameter name="baseUrl" value="https://api-coffee-testing.herokuapp.com"></parameter>
 
-<!--    <test name="Posts">-->
-<!--        <classes>-->
-<!--            <class name="PostTests"></class>-->
-<!--        </classes>-->
+    <test name="Posts">
+        <classes>
+            <class name="PostTests">
+                <methods>
+                    <!-- v1.POST("/post", TokenAuthMiddleware(), post.Create) -->
+                    <include name="Test_Post_Create_Positive" />
+                    <include name="Test_Post_Create_Negative" />
+                    <include name="Test_Post_Create_Security" />
+                    <!-- v1.GET("/posts", TokenAuthMiddleware(), post.All) -->
+                    <include name="Test_Post_All_Positive" />
+                    <include name="Test_Post_All_Schema_Positive" />
+                    <include name="Test_Post_All_Negative" />
+                    <include name="Test_Post_All_Security" />
+                    <!-- v1.DELETE("/post/:id", TokenAuthMiddleware(), post.Delete) -->
+                    <include name="Test_Post_One_Positive" />
+                    <include name="Test_Post_One_Negative" />
+                    <include name="Test_Post_One_Security" />
+                    <!-- TESTS for v1.PUT("/post/:id", TokenAuthMiddleware(), post.Update) -->
+                    <include name="Test_Post_Update_Positive" />
+                    <include name="Test_Post_Update_Negative" />
+                    <include name="Test_Post_Update_Security" />
+                    <!-- v1.DELETE("/post/:id", TokenAuthMiddleware(), post.Delete) -->
+                    <include name="Test_Post_Delete_Positive" />
+                    <include name="Test_Post_Delete_Negative" />
+                    <include name="Test_Post_Delete_Security" />
+                </methods>
+            </class>
+        </classes>
 
-<!--    </test>-->
+    </test>
 
     <test name="Comments">
         <classes>
@@ -22,8 +46,21 @@
                     <!-- v1.POST("/comment/:postid", basicAuth(), comment.Create) -->
                     <include name="Test_Comment_All_Zero_Comments_Positive" />
                     <include name="Test_Comment_All_Multiple_Comments_Positive" />
+                    <include name="Test_Comment_All_Schema_Positive" />
                     <include name="Test_Comment_All_Negative" />
                     <include name="Test_Comment_All_Security" />
+                    <!-- v1.GET("/comment/:postid/:id", basicAuth(), comment.One) -->
+                    <include name="Test_Comment_One_Positive" />
+                    <include name="Test_Comment_One_Negative" />
+                    <include name="Test_Comment_One_Security" />
+                    <!-- v1.PUT("/comment/:postid/:id", basicAuth(), comment.Update) -->
+                    <include name="Test_Comment_Update_Positive" />
+                    <include name="Test_Comment_Update_Negative" />
+                    <include name="Test_Comment_Update_Security" />
+                    <!-- v1.DELETE("/comment/:postid/:id", basicAuth(), comment.Delete) -->
+                    <include name="Test_Comment_Delete_Positive" />
+                    <include name="Test_Comment_Delete_Negative" />
+                    <include name="Test_Comment_Delete_Security" />
                 </methods>
             </class>
 
