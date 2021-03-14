@@ -37,6 +37,22 @@ public class PostTests extends BaseTest{
         return createdPost;
     }
 
+    @BeforeGroups("manage_post")
+    public static Integer createManagePost(){
+
+        Post testPost = new Post(DataHelper.generateRandomTitle(), DataHelper.generateRandomContent());
+
+        Response response = given()
+                .spec(RequestSpecs.generateToken())
+                .body(testPost)
+                .post(resourcePath);
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        createdPost = jsonPathEvaluator.get("id");
+
+        return createdPost;
+    }
+
     // - - - - - - TESTS for v1.POST("/post", TokenAuthMiddleware(), post.Create) - - - - - -
     // - - - - - - TESTS for v1.POST("/post", TokenAuthMiddleware(), post.Create) - - - - - -
     // - - - - - - TESTS for v1.POST("/post", TokenAuthMiddleware(), post.Create) - - - - - -
@@ -140,12 +156,11 @@ public class PostTests extends BaseTest{
     // - - - - - - TESTS for v1.GET("/post/:id", TokenAuthMiddleware(), post.One) - - - - - -
     // - - - - - - TESTS for v1.GET("/post/:id", TokenAuthMiddleware(), post.One) - - - - - -
     // - - - - - - TESTS for v1.GET("/post/:id", TokenAuthMiddleware(), post.One) - - - - - -
-    @Test(groups = "create_post")
+    @Test(groups = "manage_post")
     public void Test_Post_One_Positive(){
 
         // Having a new post previously done (ID stored in createdPost),
         // validates API response indicates get was successful.
-
         given()
                 .spec(RequestSpecs.generateToken())
                 .get(resourcePath + "/" + createdPost.toString())
@@ -154,7 +169,7 @@ public class PostTests extends BaseTest{
                 .assertThat().body("data.id", equalTo(createdPost.intValue()) )
                 .spec(ResponseSpecs.defaultSpec());
     }
-    @Test(groups = "create_post")
+    @Test(groups = "manage_post")
     public void Test_Post_One_Negative(){
 
         // Having a new post previously done (ID stored in createdPost),
@@ -175,7 +190,7 @@ public class PostTests extends BaseTest{
                 .body("error", equalTo("sql: no rows in result set"))
                 .spec(ResponseSpecs.defaultSpec());
     }
-    @Test(groups = "create_post")
+    @Test(groups = "manage_post")
     public void Test_Post_One_Security(){
 
         // Having a new post previously done (ID stored in createdPost) and invalid authentication token,
