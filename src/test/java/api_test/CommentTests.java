@@ -1,16 +1,13 @@
+package api_test;
+
 import helpers.DataHelper;
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import model.Comment;
-import model.Post;
-import org.hamcrest.core.Is;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import specifications.RequestSpecs;
 import specifications.ResponseSpecs;
-
-import java.sql.Array;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -67,6 +64,8 @@ public class CommentTests extends BaseTest{
 
         Comment testComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
+        // Having a post done, creates a new comment object and executes create request,
+        // validates API response indicates creation was successful.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .body(testComment)
@@ -81,6 +80,8 @@ public class CommentTests extends BaseTest{
 
         Comment testComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
+        // Having a post done, creates a request with empty body,
+        // validates API response indicates invalid form.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .post(resourcePath + "/" + createdPost.toString())
@@ -94,6 +95,8 @@ public class CommentTests extends BaseTest{
 
         Comment testComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
+        // Having a post done, creates a request with correct body but invalid credentials (user/password),
+        // validates API response indicates a valid login is needed.
         given()
                 .spec(RequestSpecs.generateInvalidBasicAuthentication())
                 .body(testComment)
@@ -110,6 +113,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "get_all_comments")
     public void Test_Comment_All_Zero_Comments_Positive(){
 
+        // Having a post done with 0 comments, creates a request to get all the comments,
+        // validates API response indicates comments total = 0.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .get(resourcePath + "s/" + createdPost.toString())
@@ -125,6 +130,8 @@ public class CommentTests extends BaseTest{
         createComment(createdPost.intValue());
         createComment(createdPost.intValue());
 
+        // Having a post done with 2 new comments, creates a request to get all the comments,
+        // validates API response indicates comments total = 2.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .get(resourcePath + "s/" + createdPost.toString())
@@ -148,6 +155,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "get_all_comments")
     public void Test_Comment_All_Negative(){
 
+        // Having a post done, creates a request to an incorrect URI using POST operation,
+        // validates API response indicates the URI does not exist.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .post(resourcePath + "s/" + createdPost.toString())
@@ -159,6 +168,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "get_all_comments")
     public void Test_Comment_All_Security(){
 
+        // Having a post done, creates a request with invalid credentials (user/password),
+        // validates API response indicates a valid login is needed.
         given()
                 .spec(RequestSpecs.generateInvalidBasicAuthentication())
                 .get(resourcePath + "s/" + createdPost.toString())
@@ -174,6 +185,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "manage_comment")
     public void Test_Comment_One_Positive(){
 
+        // Having a post done with a comment, creates a request to get the comment,
+        // validates API response indicates both Post ID and Comment ID matches the searched one.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .get(resourcePath + "/" + createdPost.toString() + "/" + createdComment.toString())
@@ -187,6 +200,9 @@ public class CommentTests extends BaseTest{
     public void Test_Comment_One_Negative(){
 
         Integer nextComment = createdComment + 1;
+
+        // Having a post done with a comment, creates a request to get a non existent comment,
+        // validates API response indicates the comment can not be found.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .get(resourcePath + "/" + createdPost.toString() + "/" + nextComment.toString())
@@ -199,6 +215,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "manage_comment")
     public void Test_Comment_One_Security(){
 
+        // Having a post done, creates a request with invalid credentials (user/password),
+        // validates API response indicates a valid login is needed.
         given()
                 .spec(RequestSpecs.generateInvalidBasicAuthentication())
                 //.body(testComment)
@@ -217,6 +235,8 @@ public class CommentTests extends BaseTest{
 
         Comment updatedComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
+        // Having a post done with a comment, creates a request with new comment to update the existing comment,
+        // validates API response indicates the comment was updated correctly.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .body(updatedComment)
@@ -224,8 +244,6 @@ public class CommentTests extends BaseTest{
                 .then()
                 .statusCode(200)
                 .body("message", equalTo("Comment updated"))
-                //.assertThat().body("data.id", equalTo(createdComment.intValue()))
-                //.assertThat().body("data.post_id", equalTo(createdPost.toString()))
                 .spec(ResponseSpecs.defaultSpec());
     }
     @Test(groups = "manage_comment")
@@ -234,6 +252,8 @@ public class CommentTests extends BaseTest{
         Comment updatedComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
         Integer nextComment = createdComment + 1;
+        // Having a post done with a comment, creates a request with new comment to update non existent comment,
+        // validates API response indicates the comment can not be found.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .body(updatedComment)
@@ -249,6 +269,8 @@ public class CommentTests extends BaseTest{
 
         Comment updatedComment = new Comment(DataHelper.generateRandomName(), DataHelper.generateRandomComment());
 
+        // Having a post done, creates a request with valid body but invalid credentials (user/password),
+        // validates API response indicates a valid login is needed.
         given()
                 .spec(RequestSpecs.generateInvalidBasicAuthentication())
                 .body(updatedComment)
@@ -264,6 +286,8 @@ public class CommentTests extends BaseTest{
     @Test(groups = "manage_comment")
     public void Test_Comment_Delete_Positive(){
 
+        // Having a post done with a comment, creates a request to delete the comment,
+        // validates API response indicates comment was deleted.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .delete(resourcePath + "/" + createdPost.toString() + "/" + createdComment.toString())
@@ -276,6 +300,8 @@ public class CommentTests extends BaseTest{
     public void Test_Comment_Delete_Negative(){
 
         Integer nextComment = createdComment + 1;
+        // Having a post done with a comment, creates a request to delete a non existent commentt,
+        // validates API response indicates comment can not be found.
         given()
                 .spec(RequestSpecs.generateBasicAuthentication())
                 .delete(resourcePath + "/" + createdPost.toString() + "/" + nextComment.toString())
@@ -288,16 +314,14 @@ public class CommentTests extends BaseTest{
     @Test(groups = "manage_comment")
     public void Test_Comment_Delete_Security(){
 
+        // Having a post done, creates a request with invalid credentials (user/password),
+        // validates API response indicates a valid login is needed.
         given()
                 .spec(RequestSpecs.generateInvalidBasicAuthentication())
-                //.body(testComment)
                 .delete(resourcePath + "/" + createdPost.toString() + "/" + createdComment.toString())
                 .then()
                 .statusCode(401)
                 .body("message", equalTo("Please login first"))
                 .spec(ResponseSpecs.defaultSpec());
     }
-
-
-
 }

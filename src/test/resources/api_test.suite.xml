@@ -6,7 +6,7 @@
 
     <test name="Posts">
         <classes>
-            <class name="PostTests">
+            <class name="api_test.PostTests">
                 <methods>
                     <!-- v1.POST("/post", TokenAuthMiddleware(), post.Create) -->
                     <include name="Test_Post_Create_Positive" />
@@ -37,7 +37,7 @@
 
     <test name="Comments">
         <classes>
-            <class name="CommentTests">
+            <class name="api_test.CommentTests">
                 <methods>
                     <!-- v1.POST("/comment/:postid", basicAuth(), comment.Create) -->
                     <include name="Test_Comment_Create_Positive" />

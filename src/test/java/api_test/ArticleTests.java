@@ -1,14 +1,14 @@
+package api_test;
+
 import helpers.DataHelper;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import model.Article;
-import model.User;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import specifications.RequestSpecs;
 import specifications.ResponseSpecs;
 
-import static helpers.DataHelper.generateRandomEmail;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;

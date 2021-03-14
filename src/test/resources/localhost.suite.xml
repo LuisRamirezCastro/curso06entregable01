@@ -4,16 +4,16 @@
 
 <!--    <parameter name="baseUrl" value="http://localhost:9000"></parameter>-->
 
-<!--    <test name="UserTests">-->
+<!--    <test name="api_test.UserTests">-->
 <!--        <classes>-->
-<!--            <class name="UserTests"></class>-->
+<!--            <class name="api_test.UserTests"></class>-->
 <!--        </classes>-->
 
 <!--    </test>-->
 
 <!--    <test name="Misc">-->
 <!--        <classes>-->
-<!--            <class name="MiscTests"></class>-->
+<!--            <class name="api_test.MiscTests"></class>-->
 <!--        </classes>-->
 <!--    </test>-->
 

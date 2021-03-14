@@ -41,11 +41,21 @@ public class DataHelper {
         return generatedString;
     }
 
-    public static User getTestUser() {
+    // Users for POST operations
+    public static User getPostsTestUser() {
         return new User("", "luis@test.com", "luis");
     }
 
-    public static User getInvalidTestUser(){
+    public static User getInvalidPostsTestUser(){
         return new User("", "luis@invalidtest.com", "invalidluis");
+    }
+
+    // Users for COMMENTS operations
+    public static User getCommentsTestUser() {
+        return new User("testuser", "", "testpass");
+    }
+
+    public static User getInvalidCommentsTestUser(){
+        return new User("testuserinvalid", "", "testpassinvalid");
     }
 }

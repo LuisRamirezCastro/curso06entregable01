@@ -1,3 +1,5 @@
+package api_test;
+
 import helpers.DataHelper;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -255,11 +257,10 @@ public class PostTests extends BaseTest{
     @Test(groups = "create_post")
     public void Test_Post_Delete_Negative(){
 
-        // Having a new post previously done (ID stored in createdPost),
-        // validates API response indicates delete did not succeeded for a non existent post.
-
         Integer nextPost = createdPost + 1;
 
+        // Having a new post previously done (ID stored in createdPost),
+        // validates API response indicates delete did not succeeded for a non existent post.
         given()
                 .spec(RequestSpecs.generateToken())
                 .delete(resourcePath + "/" + nextPost.toString())

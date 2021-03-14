@@ -1,3 +1,5 @@
+package api_test;
+
 import model.User;
 import org.testng.annotations.Test;
 import specifications.ResponseSpecs;

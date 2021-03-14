@@ -1,3 +1,5 @@
+package api_test;
+
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
